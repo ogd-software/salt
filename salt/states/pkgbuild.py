@@ -212,7 +212,6 @@ def built(name,
         sources,
         deps,
         env,
-        template,
         saltenv,
         log_dir)
 

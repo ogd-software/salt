@@ -223,7 +223,6 @@ def build(runas,
           sources,
           deps,
           env,
-          template,
           saltenv='base',
           log_dir='/var/log/salt/pkgbuild'):
     '''

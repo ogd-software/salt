@@ -270,7 +270,7 @@ def _mk_tree():
     return basedir
 
 
-def _get_spec(tree_base, spec, template, saltenv='base'):
+def _get_spec(tree_base, spec, saltenv='base'):
     '''
     Get the spec file (tarball of the debian sub-dir to use)
     and place it in build area
@@ -294,7 +294,7 @@ def _get_src(tree_base, source, saltenv='base'):
         shutil.copy(source, dest)
 
 
-def make_src_pkg(dest_dir, spec, sources, env=None, template=None, saltenv='base'):
+def make_src_pkg(dest_dir, spec, sources, env=None, saltenv='base'):
     '''
     Create a platform specific source package from the given platform spec/control file and sources
 
@@ -315,7 +315,7 @@ def make_src_pkg(dest_dir, spec, sources, env=None, template=None, saltenv='base
     if not os.path.isdir(dest_dir):
         os.makedirs(dest_dir)
 
-    spec_pathfile = _get_spec(tree_base, spec, template, saltenv)
+    spec_pathfile = _get_spec(tree_base, spec, saltenv)
 
     # build salt equivalents from scratch
     if isinstance(sources, six.string_types):
@@ -388,7 +388,6 @@ def build(runas,
           sources,
           deps,
           env,
-          template,
           saltenv='base',
           log_dir='/var/log/salt/pkgbuild'):  # pylint: disable=unused-argument
     '''
@@ -414,7 +413,7 @@ def build(runas,
             raise
     dsc_dir = tempfile.mkdtemp()
     try:
-        dscs = make_src_pkg(dsc_dir, spec, sources, env, template, saltenv)
+        dscs = make_src_pkg(dsc_dir, spec, sources, env, saltenv)
     except Exception as exc:
         shutil.rmtree(dsc_dir)
         log.error('Failed to make src package')
